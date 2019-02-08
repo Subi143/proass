@@ -1,0 +1,316 @@
+package com.mphasis.training.java151.java8demo;
+
+public class Department {
+	private int departmentId;
+	private String departmentName;
+	private int managerId;
+	
+	public Department(int departmentId, String departmentName, int managerId) {
+		super();
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
+		this.managerId = managerId;
+	}
+	public int getDepartmentId() {
+		return departmentId;
+	}
+	public String getDepartmentName() {
+		return departmentName;
+	}
+	public int getManagerId() {
+		return managerId;
+	}
+	@Override
+	public String toString() {
+		return "Department [departmentId=" + departmentId + ", departmentName=" + departmentName + ", managerId="
+				+ managerId + "]";
+	}
+}
+
+package com.mphasis.training.java151.java8demo;
+
+import java.time.LocalDate;
+import java.util.Date;
+
+public class Employee {
+	private int employeeId;
+	private String firstname;
+	private String lastname;
+	private String email;
+	private String phonenummber;
+	private LocalDate hireDate;
+	private String designation;
+	static double salary;
+	private int managerId;
+	Department department;
+	
+	public Employee() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Employee(int employeeId, String firstname, String lastname, String email, String phonenummber,
+			LocalDate hireDate, String designation, double salary, int managerId, Department department) {
+		super();
+		this.employeeId = employeeId;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.phonenummber = phonenummber;
+		this.hireDate = hireDate;
+		this.designation = designation;
+		this.salary = salary;
+		this.managerId = managerId;
+		this.department = department;
+	}
+	public int getEmployeeId() {
+		return employeeId;
+	}
+	public String getFirstname() {
+		return firstname;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public String getPhonenummber() {
+		return phonenummber;
+	}
+	public LocalDate getHireDate() {
+		return hireDate;
+	}
+	public String getDesignation() {
+		return designation;
+	}
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setPhonenummber(String phonenummber) {
+		this.phonenummber = phonenummber;
+	}
+	public void setHireDate(LocalDate hireDate) {
+		this.hireDate = hireDate;
+	}
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	public void setManagerId(int managerId) {
+		this.managerId = managerId;
+	}
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public int getManagerId() {
+		return managerId;
+	}
+	public Department getDepartment() {
+		return department;
+	}
+	
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", firstname=" + firstname + ", lastname=" + lastname + ", email="
+				+ email + ", phonenummber=" + phonenummber + ", hireDate=" + hireDate + ", designation=" + designation
+				+ ", salary=" + salary + ", managerId=" + managerId + ", department=" + department + "]";
+	}
+}
+
+package com.mphasis.training.java151.java8demo;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+public class EmployeeRepository {
+	static List<Employee> employees = new ArrayList<>();
+	
+	static {
+		try {
+			setEmployeeDetails();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void setEmployeeDetails() throws ParseException {
+		Department d=new Department(201,"development",101);
+		Department d1=new Department(202,"tseting",102);
+		
+			employees.add(new Employee(101, "Harsha","Savanth", "harsha.savanth@gmail.com", "25463215", LocalDate.of(2018, 04, 01), "developer",23000,
+					101,d ));
+			employees.add(new Employee(102, "Shreyamsh","Gowda", "shreyamsh.gowda@gmail.com", "41263215", LocalDate.of(2018, 11, 21), "developer",23000,
+					101, d));
+			employees.add(new Employee(103, "Sameer","Simha", "sameersimha@gmail.com", "25466615", LocalDate.of(2018, 10, 18), "developer",23000,
+					101, d));
+			employees.add(new Employee(104, "Deemanth","Ayyappa", "deemanthayyapa@gmail.com", "2163215", LocalDate.of(2018, 1, 21), "tester",25000,
+					102, d1));
+			employees.add(new Employee(105, "Chetan","Gowda", "chetangowwda@gmail.com", "29661215", LocalDate.of(2018, 11, 21), "tester",25000,
+					102, d1));
+			employees.add(new Employee(106, "Arun","Kumar", "arunkumar@gmail.com", "2326615", LocalDate.of(2018, 11, 21), "tester",25000,
+					0, d1));
+			
+		
+	}
+	
+	public static List<Employee> getEmployees() {
+		return employees;
+	}	
+}
+
+
+package com.mphasis.training.java151.java8demo;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+public class EmployeeService2 {
+
+	public static void main(String[] args) {
+		 List<Employee> list=EmployeeRepository.getEmployees();
+		double salarySum=list.stream().mapToDouble(employee->employee.getSalary()).sum();
+		System.out.println(salarySum);
+		
+		Map<Object, List<Employee>> deptCount=list.stream()
+				.collect(Collectors.groupingBy(employee->employee.getDepartment()));
+        System.out.println(deptCount);
+        
+        Comparator<Employee> comparator = 
+        		Comparator.comparing( Employee::getHireDate );
+
+    
+        java.util.Optional<Employee> employee = list
+                .stream()
+                .sorted((e1, e2) -> e1.getHireDate()
+                        .compareTo(e2.getHireDate())).findFirst();
+
+        System.out.println("senior most employee of an organization"+employee.get());
+
+	System.out.println("dispalying the list according to date");
+	list.stream()
+            .sorted((e1, e2) -> e1.getHireDate()
+                    .compareTo(e2.getHireDate()))
+            .forEach(e -> System.out.println(e));
+	 
+	 System.out.println("employees without department");
+	 
+	 List<Employee> filtered = list
+			 	.stream().filter(empd-> empd.getDepartment().equals(null))
+			 	.collect(Collectors.toList());
+	
+	
+	if(filtered.isEmpty()) {
+		System.out.println("employee belongs to department");
+	}else {
+	
+		for(Employee e:filtered) {
+			System.out.println(e);
+		}
+	}
+	
+	 System.out.println("department without employees");
+	 System.out.println("invalid case");
+	
+	 
+	 System.out.printf("Count of Employees by department:");  
+      Map<Department, Long> counted = list.stream()
+              .collect(Collectors.groupingBy(Employee::getDepartment, 
+            		  Collectors.counting()));
+      System.out.println(counted);
+      
+      System.out.println("Sort employees by FirstName");
+
+      list.sort((Employee s1, Employee s2)->s1.getFirstname().compareTo(s2.getFirstname()));
+      list.forEach((s)->System.out.println(s));  
+      
+      System.out.println("Sort employees by Id");
+
+      list.sort((Employee s1, Employee s2)->s1.getEmployeeId()-s2.getEmployeeId()); 
+      list.forEach((s)->System.out.println(s)); 
+      
+   
+      System.out.println("dispalying the list according to day");
+  	list.stream()
+              .sorted((e1, e2) -> e1.getHireDate().getDayOfWeek()
+                      .compareTo(e2.getHireDate().getDayOfWeek()))
+              .forEach(e -> System.out.println(e));
+
+  	System.out.println("comparing first name and last name both");
+  	Comparator<Employee> byFirstName = (e1, e2) -> e1
+            .getFirstname().compareTo(e2.getFirstname());
+
+    Comparator<Employee> byLastName = (e1, e2) -> e1.getLastname()
+            .compareTo(e2.getLastname());
+
+    list.stream().sorted(byFirstName.thenComparing(byLastName))
+            .forEach(e -> System.out.println(e));
+
+    System.out.println("list of employees without manager");
+    
+    List<Employee> filtered1 = list
+		 	.stream().filter(empd-> empd.getManagerId()==0)
+		 	.collect(Collectors.toList());
+
+
+if(filtered1.isEmpty()) {
+	System.out.println("employee reports to Manager");
+}else {
+
+	for(Employee e:filtered1) {
+		System.out.println(e);
+	}
+}
+
+System.out.println("employees who are managers");
+List<Employee> filtered2 = list
+	.stream().filter(empd-> empd.getEmployeeId()==empd.getManagerId())
+	.collect(Collectors.toList()); 
+for(Employee e:filtered2) {
+	System.out.println(e);
+}
+
+System.out.println("list of names and salary and with salary increment");
+list.forEach(item->System.out.println(item.getFirstname()+" "+item.getSalary()+" increment"+item.getSalary()*1.2));
+
+
+System.out.println("list of names and hiredate and day of joined");
+list.forEach(item->System.out.println(item.getFirstname()+" "+item.getHireDate()+"day of joined "+item.getHireDate().getDayOfWeek()));
+
+System.out.println("list of names and duration in company");
+list.forEach(item->System.out.println(item.getFirstname()+" "
++Period.between(item.getHireDate(), LocalDate.now())));
+
+
+
+	}
+}
+
